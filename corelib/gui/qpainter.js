@@ -88,6 +88,10 @@ function QPainter(c){
         ctx.fillStyle = this.pen.color;   
         ctx.fillText(txt, x, y);
     }
+
+    this.drawImage = function(url){
+        
+    }
     
     this.clearRect = function(x,y,w,h){
         var ctx=this.canvas.getContext("2d");

@@ -41,8 +41,8 @@ QObject.connect = QObject.prototype.connect;
 QObject.emit = QObject.prototype.emit;
 QObject.setInstance = QObject.prototype.setInstance;
 
-QObject.extends = function (child, parent) {
-  var o = new parent();
+QObject.extends = function (child, parent, params=null) {
+  var o = new parent(params);
   for (var key in o) {
     child[key] = o[key];
   }

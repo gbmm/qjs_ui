@@ -13,6 +13,7 @@ function CalcultorWidget(){
 
     this.Constructor = function(){
         this.resize(400,500);
+        this.setWindowFlags(Qt.FramelessWindowHint);
         this.lineedit = new QLineEdit(this);
         this.lineedit.setPosition(0,0,400,100);
         this.lineedit.setColor('#ff0000');
@@ -104,8 +105,6 @@ function CalcultorWidget(){
             that.second += sender.text;
             that.lineedit.setText(that.second);
         }
-        // console.log('this is click', sender.text);
-        // that.lineedit.setText(sender.text);
     }
 
     this.Constructor();

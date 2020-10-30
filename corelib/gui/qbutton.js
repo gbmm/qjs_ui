@@ -14,6 +14,7 @@ function QButton(parent){
     this.pressColor = ''
     this.background = ''
     this.parent = parent;
+    this.linearGradientColor = ['#e7e7e7', '#ddd', '#a7a7a7'];
     // this._canvas = new QCanvas(this.x, this.y, this.width, this.height);
     // this.canvas = this._canvas.getCanvas();
     this.parent.appendChild(this.canvas);
@@ -37,6 +38,10 @@ function QButton(parent){
         this.initStyle();
     }
 
+    this.setLinearGradientColor = function(colors){
+        this.linearGradientColor = colors;
+    }
+
     this.setPressColor = function(color){
         this.pressColor = color;
     }
@@ -52,9 +57,9 @@ function QButton(parent){
         }else{
             var pen = new QPen('#0000ff',1, true);
             var linear = ctx.createLinearGradient( 0, 0, 0, this.height);
-            linear.addColorStop(0,'#e7e7e7')
-            linear.addColorStop(0.5,'#ddd')
-            linear.addColorStop(1,'#a7a7a7')
+            linear.addColorStop(0,this.linearGradientColor[0]);
+            linear.addColorStop(0.5,this.linearGradientColor[1]);
+            linear.addColorStop(1,this.linearGradientColor[2]);
             pen.setFillStyle(linear);
             painter.setPen(pen);
             painter.fillRoundRect(0,0,this.width,this.height,this.radius);
