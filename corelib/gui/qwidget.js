@@ -36,6 +36,41 @@ function QWidget(parent){
         if(!parent){
             document.body.appendChild(this.all_div);
         }
+
+        this._title_div.that = this;
+        this._title_div.onmousedown = function(ev){
+            this.titlepress = true;
+            this.start = ev;
+            this.style.cursor = 'move';
+        }
+        this._title_div.onmousemove = function(ev){
+            this.style.cursor = 'move';
+            if(this.titlepress){
+                var px = ev.screenX - this.start.screenX;
+                var py = ev.screenY - this.start.screenY;
+                this.that.setStyle({"left": this.that.x+px,'top': this.that.y+py}, this.that.all_div);
+            }
+        }
+        this._title_div.onmouseout = function(ev){
+            if(ev && this.titlepress){
+                var px = ev.screenX - this.start.screenX;
+                var py = ev.screenY - this.start.screenY;
+                this.that.x = this.that.x+px;
+                this.that.y = this.that.y+py;
+            }
+            this.titlepress = false;
+            this.style.cursor = 'default';
+        }
+        this._title_div.onmouseup = function(ev){
+            if(ev && this.titlepress){
+                var px = ev.screenX - this.start.screenX;
+                var py = ev.screenY - this.start.screenY;
+                this.that.x = this.that.x+px;
+                this.that.y = this.that.y+py;
+            }
+            this.titlepress = false;
+            this.style.cursor = 'default';
+        }
     }
 
     this.initUI = function(){
@@ -92,7 +127,7 @@ function QWidget(parent){
         this.closeBtn.setLinearGradientColor(['#E6A395', '#FFF', '#E6A395']);
         this.closeBtn.setPressColor('rgb(255,0,0)');
         this.closeBtn.setText('×');
-        // this.connect(btn,'click',this,'btnClick');
+        this.connect(this.closeBtn,'click',this,'close');
     }
 
     this.miniClick = function(that){
@@ -128,6 +163,11 @@ function QWidget(parent){
             that.status = Qt.Normal;
             return;
         }
+    }
+
+    this.close = function(that){
+        that.all_div.parentNode.removeChild(that.all_div);
+        that.all_div = null;
     }
 
     this.setLayout = function(layout){
