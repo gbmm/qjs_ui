@@ -9,9 +9,9 @@ function main(){
     var app = new QApplication();
     // var w = new MyWidget();
     // var w = new CalcultorWidget();
-    // var w = new CalcultorLayoutWidget();
+    var w = new CalcultorLayoutWidget();
     // var w = new VLayoutWidget();
-    var w = new HLayoutWidget();
+    // var w = new HLayoutWidget();
     // w.show();
     app.exec();
 } 

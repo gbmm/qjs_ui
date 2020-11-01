@@ -26,7 +26,9 @@ function QObject() {
     if (src.signal_slot[key]) {
       for (var callback of src.signal_slot[key]) {
         var dst = eval('self.'+callback.split('.')[1]);
-        eval(callback)(dst, src, params);
+        var funname = callback.split('.').slice(-1);
+        dst[funname](src, params);
+        // eval(callback)(dst, src, params);
       }
     }
   }
@@ -45,7 +47,13 @@ QObject.extends = function (child, parent, params=null) {
   var o = new parent(params);
   for (var key in o) {
     child[key] = o[key];
+    
   }
+  if(child.uuid){
+    child.obj = "self.obj_" + child.uuid.replace(/-/g, '_');
+    eval(child.obj + "=child");
+  }
+  
 }
 
 

@@ -7,7 +7,6 @@ import {Qt} from '../corelib/core/qt.js'
 
 function VLayoutWidget(){
     QObject.extends(this, QWidget);
-    this.setInstance(this);
 
     this.Constructor = function(){
         this.resize(100,600);

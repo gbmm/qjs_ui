@@ -8,7 +8,6 @@ import {Qt} from '../corelib/core/qt.js'
 
 function HLayoutWidget(){
     QObject.extends(this, QWidget);
-    this.setInstance(this);
 
     this.Constructor = function(){
         this.resize(600,600);

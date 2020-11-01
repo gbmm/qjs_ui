@@ -5,7 +5,6 @@ import {QLineEdit} from '../corelib/gui/qlineedit.js'
 
 function CalcultorWidget(){
     QObject.extends(this, QWidget);
-    this.setInstance(this);
 
     this.first = '';
     this.second = '';
@@ -81,29 +80,29 @@ function CalcultorWidget(){
 
     }
     
-    this.btnClick = function(that, sender, params){
-        if(sender.text === '=' && that.oper){
-            var s = that.first + that.oper+that.second;
-            that.lineedit.setText(eval(s).toString());
-            that.first = '';
-            that.second = '';
-            that.oper = '';
+    this.btnClick = function( sender, params){
+        if(sender.text === '=' && this.oper){
+            var s = this.first + this.oper+this.second;
+            this.lineedit.setText(eval(s).toString());
+            this.first = '';
+            this.second = '';
+            this.oper = '';
             return;
         }
 
         if(sender.text === '+' || sender.text === '-'
         || sender.text === '*' || sender.text === '/'){
-            that.oper = sender.text;
-            that.lineedit.setText('');
+            this.oper = sender.text;
+            this.lineedit.setText('');
             return;
         }
 
-        if(!that.first || !that.oper){
-            that.first += sender.text;
-            that.lineedit.setText(that.first);
-        }else if (!that.second && that.oper){
-            that.second += sender.text;
-            that.lineedit.setText(that.second);
+        if(!this.first || !this.oper){
+            this.first += sender.text;
+            this.lineedit.setText(this.first);
+        }else if (!this.second && this.oper){
+            this.second += sender.text;
+            this.lineedit.setText(this.second);
         }
     }
 
