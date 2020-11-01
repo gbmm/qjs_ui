@@ -5,6 +5,8 @@ var Qt = {
     Normal: 3,                       // 正常大小
     Mininum: 4,                      // 最小化
     Maxinum: 5,                      // 最大化
+    Layout: 6,                       // 是布局
+    Widget: 7,                       // 是窗口
 }
 
 export {Qt};

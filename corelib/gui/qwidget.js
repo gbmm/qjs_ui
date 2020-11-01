@@ -18,6 +18,7 @@ function QWidget(parent){
     this.isShow = false;
     this.canvas = null;
     this.status = Qt.Normal;
+    this.type = Qt.Widget;
     this.layout = null;
     this.children = new QList();
 
@@ -44,8 +45,8 @@ function QWidget(parent){
             this.style.cursor = 'move';
         }
         this._title_div.onmousemove = function(ev){
-            this.style.cursor = 'move';
             if(this.titlepress){
+                this.style.cursor = 'move';
                 var px = ev.screenX - this.start.screenX;
                 var py = ev.screenY - this.start.screenY;
                 this.that.setStyle({"left": this.that.x+px,'top': this.that.y+py}, this.that.all_div);

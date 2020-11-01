@@ -5,16 +5,31 @@ import { Qt } from '../core/qt.js';
 function QLayout(parent){
     this.datas = new QList();
     this.parent = parent;
+    this.type = Qt.Layout;
+    this.x = 0;
+    this.y = 0;
+    this.width = 0;
+    this.height = 0;
 
     this.Constructor = function(){
     } 
     
     this.setParent = function(parent){
         this.parent = parent;
-
     }
 
     this.update = function(){
+
+    }
+
+    this.setLayoutPosition = function(x,y,w, h){
+        this.x = x;
+        this.y = y;
+        this.width = w;
+        this.height = h;
+    }
+
+    this.setLayout = function(){
 
     }
 }
@@ -78,6 +93,10 @@ function QVLayout(parent){
     }
 
     this.update = function(){
+        if(this.parent.type === Qt.Widget){
+           this.setLayoutPosition(0, 0, this.parent.width, this.parent.height);
+        }
+        
         var sum = 0;
         var eq = true;
         if(this.percents.length != this.datas.length){
@@ -89,19 +108,23 @@ function QVLayout(parent){
             }
         }
         
-        var x = 0;
-        var y = 0;
+        var x = this.x;
+        var y = this.y;
         var per = 1;
-        var ew = this.parent.width;
+        var ew = this.width;
         for(var i=0; i<this.datas.count(); i++){
             if (eq){
                 per = this.percents[i] / sum;
             }else{
                 per = 1 / sum;
             }
-            var eh = this.parent.height * per;
+            var eh = this.height * per;
             if(this.datas[i].hasOwnProperty('setPosition')){
                 this.datas[i].setPosition(x,y,ew,eh);
+            }
+            if(this.datas[i].type === Qt.Layout){
+                this.datas[i].setLayoutPosition(x, y, ew, eh);
+                this.datas[i].update();
             }
             y += eh;
         }
@@ -124,6 +147,9 @@ function QHLayout(parent){
     }
 
     this.update = function(){
+        if(this.parent.type === Qt.Widget){
+            this.setLayoutPosition(0, 0, this.parent.width, this.parent.height);
+        }
         var sum = 0;
         var eq = true;
         if(this.percents.length != this.datas.length){
@@ -138,18 +164,21 @@ function QHLayout(parent){
         var x = 0;
         var y = 0;
         var per = 1;
-        var eh = this.parent.height;
+        var eh = this.height;
         for(var i=0; i<this.datas.count(); i++){
             if (eq){
                 per = this.percents[i] / sum;
             }else{
                 per = 1 / sum;
             }
-            var ew = this.parent.width * per;
+            var ew = this.width * per;
             if(this.datas[i].hasOwnProperty('setPosition')){
                 this.datas[i].setPosition(x,y,ew,eh);
             }
-            console.log(x,y,ew,eh);
+            if(this.datas[i].type === Qt.Layout){
+                this.datas[i].setLayoutPosition(x, y, ew, eh);
+                this.datas[i].update();
+            }
             x += ew;
         }
     }
