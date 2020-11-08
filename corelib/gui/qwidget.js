@@ -39,6 +39,16 @@ function QWidget(parent){
         }
 
         this._title_div.that = this;
+        this.all_div.that = this;
+
+        this.all_div.onmousedown = function(ev){
+            this.that.onmousedown(ev);
+        }
+
+        this.all_div.onmouseup = function(ev){
+            this.that.onmouseup(ev);
+        }
+
         this._title_div.onmousedown = function(ev){
             this.titlepress = true;
             this.start = ev;
@@ -216,6 +226,7 @@ function QWidget(parent){
 
     this.appendChild = function(child){
         this._content_div.appendChild(child);
+        this.children.append(child);
     }
 
     /**
@@ -229,6 +240,14 @@ function QWidget(parent){
 
     this.show = function(){
         this.isShow = true;
+    }
+
+    this.onmousedown = function(ev){
+        console.log('mousedown', ev);
+    }
+
+    this.onmouseup = function(ev){
+        console.log('mouseup', ev);
     }
     /////////////////////////////////
     this.Constructor();
