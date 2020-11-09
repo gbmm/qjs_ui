@@ -11,10 +11,10 @@ function QLineEdit(parent){
     this.height = 100;
     this.parent = parent;
     this.input = document.createElement("input");
-    this.parent.appendChild(this.input);
 
     this.Constructor = function(){
         this.input.that = this;
+        this.parent.appendChild(this.input);
     }
 
     this.setPosition = function(x,y,w,h){
@@ -47,6 +47,8 @@ function QLineEdit(parent){
     this.setText = function(txt){
         this.input.value = txt;
     }
+
+    this.Constructor();
 }
 
 export {QLineEdit};

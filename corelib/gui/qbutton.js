@@ -15,13 +15,11 @@ function QButton(parent){
     this.background = ''
     this.parent = parent;
     this.linearGradientColor = ['#e7e7e7', '#ddd', '#a7a7a7'];
-    // this._canvas = new QCanvas(this.x, this.y, this.width, this.height);
-    // this.canvas = this._canvas.getCanvas();
-    this.parent.appendChild(this.canvas);
 
     this.Constructor = function(){
         this.canvas.that = this;
         this.initStyle();
+        this.parent.appendChild(this.canvas);
     }
 
     this.setFont = function(font){
@@ -91,13 +89,26 @@ function QButton(parent){
         this._setText(this.text);
     }
 
-    this.canvas.onmousedown = function(ev){
-        this.that.pressStyle();
+    // this.canvas.onmousedown = function(ev){
+    //     this.that.pressStyle();
+    // }
+
+    // this.canvas.onmouseup = function(ev){
+    //     this.that.initStyle();
+    //     this.that.emit(this.that, 'click');
+    // }
+
+    this.onmousedown = function(ev){
+        this.pressStyle();
     }
 
-    this.canvas.onmouseup = function(ev){
-        this.that.initStyle();
-        this.that.emit(this.that, 'click');
+    this.onmouseup = function(ev){
+        this.initStyle();
+        this.emit(this, 'click');
+    }
+
+    this.onmousemove = function(ev){
+        // console.log('mousemove', ev);
     }
 
     this.setPosition = function(x,y,w,h){

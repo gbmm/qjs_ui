@@ -49,6 +49,10 @@ function QWidget(parent){
             this.that.onmouseup(ev);
         }
 
+        this.all_div.onmousemove = function(ev){
+            this.that.onmousemove(ev);
+        }
+
         this._title_div.onmousedown = function(ev){
             this.titlepress = true;
             this.start = ev;
@@ -226,7 +230,7 @@ function QWidget(parent){
 
     this.appendChild = function(child){
         this._content_div.appendChild(child);
-        this.children.append(child);
+        this.children.append(child.that);
     }
 
     /**
@@ -234,8 +238,8 @@ function QWidget(parent){
      * @param {*} x 
      * @param {*} y 
      */
-    this.in = function(x, y){
-        return x>=this.x && y>=this.y && x<=this.width && y<=this.height;
+    this.in = function(x, y, child){
+        return x>=child.x && y>=child.y && x<=child.width+child.x && y<=child.height+child.y;
     }
 
     this.show = function(){
@@ -243,11 +247,27 @@ function QWidget(parent){
     }
 
     this.onmousedown = function(ev){
-        console.log('mousedown', ev);
+        this.findChild(ev, 'onmousedown');
     }
 
     this.onmouseup = function(ev){
-        console.log('mouseup', ev);
+        this.findChild(ev, 'onmouseup');
+    }
+
+    this.onmousemove = function(ev){
+        // console.log('mousemove', ev);
+    }
+
+    this.findChild = function(ev, funname){
+        let x = ev.clientX - this.x;
+        let y = ev.clientY - this.y;
+        for(let child of this.children){
+            if(this.in(x,y,child)){
+                if(child.hasOwnProperty(funname)){
+                    child[funname]();
+                }
+            }
+        }
     }
     /////////////////////////////////
     this.Constructor();
