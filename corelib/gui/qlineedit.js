@@ -48,6 +48,14 @@ function QLineEdit(parent){
         this.input.value = txt;
     }
 
+    Object.defineProperty(this,'text',{
+        set:function(t){
+            this.setText(t);
+        },
+        get:function(){
+            return this.getText();
+        }
+    }) 
     this.Constructor();
 }
 
