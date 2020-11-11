@@ -89,15 +89,6 @@ function QButton(parent){
         this._setText(this.text);
     }
 
-    // this.canvas.onmousedown = function(ev){
-    //     this.that.pressStyle();
-    // }
-
-    // this.canvas.onmouseup = function(ev){
-    //     this.that.initStyle();
-    //     this.that.emit(this.that, 'click');
-    // }
-
     this.onmousedown = function(ev){
         this.pressStyle();
     }

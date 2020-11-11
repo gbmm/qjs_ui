@@ -14,6 +14,7 @@ function QCanvas(x, y, w, h){
     this.canvas.height = h;
     this.pen = new QPen();
     this.painter = new QPainter(this.canvas);
+    this.painter.setPen(this.pen);
     // this.canvas.style.backgroundColor='#000000';
 
     this.getCanvas = function(){
