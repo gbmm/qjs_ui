@@ -260,7 +260,7 @@ function QWidget(parent){
 
     this.findChild = function(ev, funname){
         let x = ev.clientX - this.x;
-        let y = ev.clientY - this.y;
+        let y = ev.clientY - this.y - this.titleHeight;
         for(let child of this.children){
             if(this.in(x,y,child)){
                 if(child.hasOwnProperty(funname)){

@@ -5,10 +5,6 @@ import {QPainter,QPen, QPoint} from './qpainter.js'
 
 function QCheckBox(parent){
     QObject.extends(this, QCanvas);
-    this.x = 0;
-    this.y = 0;
-    this.width = 100;
-    this.height = 100;
     this.parent = parent;
     this.checked = false;
     this.press = false;
@@ -20,11 +16,15 @@ function QCheckBox(parent){
     }
 
     this.initUI = function(){
-        // this.painter.setPen(pen);
-        this.pen.setPenStyle('#0000ff',2,false);
         var h = this.height * 0.5;
-        this.painter.drawRect(0,this.height * 0.25,h,h);
-        this.setCheckable(true);
+        this.rect = [1,this.height * 0.25,h,h]
+        this.pen.setPenStyle('#0000ff',2,false);
+        this.painter.drawRect(this.rect[0], this.rect[1], this.rect[2], this.rect[3]);
+        this.setCheckable(this.checked);
+    }
+
+    this.update = function(){
+        this.initUI();
     }
     
     this.setBackgroundColor = function(color){
@@ -50,17 +50,22 @@ function QCheckBox(parent){
 
     this.onmouseup = function(ev){
         if(this.press){
-
+            this.checked = !this.checked;
+            this.setCheckable(this.checked);
         }
         this.press = false;
-        // this.emit(this, 'click');
+        this.emit(this, 'checked', this.checked);
     }
 
     this.setCheckable = function(flag){
-        var font = this.pen.font;
-        this.pen.setFont("28px bold 宋体");
-        this.painter.drawText(2, this.height * 0.7, "✔");
-        this.pen.setFont(font);
+        if(flag){
+            var font = this.pen.font;
+            this.pen.setFont("28px bold 宋体");
+            this.painter.drawText(2, this.height * 0.7, "✔");
+            this.pen.setFont(font);
+        }else{
+            this.painter.clearRect(this.rect[0], this.rect[1], this.rect[2], this.rect[3]);
+        }
     }
 
     this.Constructor();
