@@ -8,8 +8,8 @@ function QWidget(parent){
     QObject.extends(this, QObject);
     this.x = 200;
     this.y = 100;
-    this.width = 600;
-    this.height = 480;
+    this.width = 700;
+    this.height = 420;
     this.oriX = this.x;
     this.oriY = this.y;
     this.oriWidth = this.width;
@@ -38,8 +38,7 @@ function QWidget(parent){
             document.body.appendChild(this.all_div);
         }
 
-        this._title_div.that = this;
-        this.all_div.that = this;
+        // this._title_div.that = this;
 
         this.all_div.onmousedown = function(ev){
             this.that.onmousedown(ev);
@@ -53,39 +52,39 @@ function QWidget(parent){
             this.that.onmousemove(ev);
         }
 
-        this._title_div.onmousedown = function(ev){
-            this.titlepress = true;
-            this.start = ev;
-            this.style.cursor = 'move';
-        }
-        this._title_div.onmousemove = function(ev){
-            if(this.titlepress){
-                this.style.cursor = 'move';
-                var px = ev.screenX - this.start.screenX;
-                var py = ev.screenY - this.start.screenY;
-                this.that.setStyle({"left": this.that.x+px,'top': this.that.y+py}, this.that.all_div);
-            }
-        }
-        this._title_div.onmouseout = function(ev){
-            if(ev && this.titlepress){
-                var px = ev.screenX - this.start.screenX;
-                var py = ev.screenY - this.start.screenY;
-                this.that.x = this.that.x+px;
-                this.that.y = this.that.y+py;
-            }
-            this.titlepress = false;
-            this.style.cursor = 'default';
-        }
-        this._title_div.onmouseup = function(ev){
-            if(ev && this.titlepress){
-                var px = ev.screenX - this.start.screenX;
-                var py = ev.screenY - this.start.screenY;
-                this.that.x = this.that.x+px;
-                this.that.y = this.that.y+py;
-            }
-            this.titlepress = false;
-            this.style.cursor = 'default';
-        }
+        // this._title_div.onmousedown = function(ev){
+        //     this.titlepress = true;
+        //     this.start = ev;
+        //     this.style.cursor = 'move';
+        // }
+        // this._title_div.onmousemove = function(ev){
+        //     if(this.titlepress){
+        //         this.style.cursor = 'move';
+        //         var px = ev.screenX - this.start.screenX;
+        //         var py = ev.screenY - this.start.screenY;
+        //         this.that.setStyle({"left": this.that.x+px,'top': this.that.y+py}, this.that.all_div);
+        //     }
+        // }
+        // this._title_div.onmouseout = function(ev){
+        //     if(ev && this.titlepress){
+        //         var px = ev.screenX - this.start.screenX;
+        //         var py = ev.screenY - this.start.screenY;
+        //         this.that.x = this.that.x+px;
+        //         this.that.y = this.that.y+py;
+        //     }
+        //     this.titlepress = false;
+        //     this.style.cursor = 'default';
+        // }
+        // this._title_div.onmouseup = function(ev){
+        //     if(ev && this.titlepress){
+        //         var px = ev.screenX - this.start.screenX;
+        //         var py = ev.screenY - this.start.screenY;
+        //         this.that.x = this.that.x+px;
+        //         this.that.y = this.that.y+py;
+        //     }
+        //     this.titlepress = false;
+        //     this.style.cursor = 'default';
+        // }
     }
 
     this.initUI = function(){
@@ -113,14 +112,14 @@ function QWidget(parent){
         this.all_div.appendChild(this._content_div);
         this._canvas.resize(this.width, this.height);
 
-        this.miniBtn.setPosition(this.width-100, 0, 30,30);
-        this.maxBtn.setPosition(this.width-65, 0, 30,30);
-        this.closeBtn.setPosition(this.width-30, 0, 30,30);
+        this.miniBtn.setPosition(this.width-100, -this.titleHeight, 30,30);
+        this.maxBtn.setPosition(this.width-65, -this.titleHeight, 30,30);
+        this.closeBtn.setPosition(this.width-30, -this.titleHeight, 30,30);
     }
 
 
     this.initTitle = function(){
-        this.miniBtn = new QButton(this._title_div);
+        this.miniBtn = new QButton(this);
         this.miniBtn.setFont('18px bold 宋体');
         this.miniBtn.setRadius(5);
         this.miniBtn.setLinearGradientColor(['#BED3E9', '#FFF', '#AFEEEE']);
@@ -128,7 +127,7 @@ function QWidget(parent){
         this.miniBtn.setText('ー');
         this.connect(this.miniBtn,'click',this,'miniClick');
 
-        this.maxBtn = new QButton(this._title_div);
+        this.maxBtn = new QButton(this);
         this.maxBtn.setFont('18px bold 宋体');
         this.maxBtn.setRadius(5);
         this.maxBtn.setLinearGradientColor(['#BED3E9', '#FFF', '#AFEEEE']);
@@ -136,7 +135,7 @@ function QWidget(parent){
         this.maxBtn.setText('ㇿ');
         this.connect(this.maxBtn,'click',this,'maxClick');
 
-        this.closeBtn = new QButton(this._title_div);
+        this.closeBtn = new QButton(this);
         this.closeBtn.setFont('18px bold 宋体');
         this.closeBtn.setRadius(5);
         this.closeBtn.setLinearGradientColor(['#E6A395', '#FFF', '#E6A395']);
@@ -145,44 +144,44 @@ function QWidget(parent){
         this.connect(this.closeBtn,'click',this,'close');
     }
 
-    this.miniClick = function(that){
-        if(that.status !== Qt.Mininum){
-            var _h = window.document.body.clientHeight - that.titleHeight;
+    this.miniClick = function(){
+        if(this.status !== Qt.Mininum){
+            var _h = window.document.body.clientHeight - this.titleHeight;
             var _w = 110;
-            var x = -that.x-_w;
+            var x = -this.x-_w;
             if(x+_w <= _w){
                 x = 0;
             }
-            that.resize(110, that.titleHeight, x, _h, that.status!=Qt.Maxinum);
-            that.setStyle({"display": "none"}, that._content_div);
-            that.status = Qt.Mininum;
+            this.resize(110, this.titleHeight, x, _h, this.status!=Qt.Maxinum);
+            this.setStyle({"display": "none"}, this._content_div);
+            this.status = Qt.Mininum;
         } 
     }
 
-    this.maxClick = function(that){
-        if( that.status === Qt.Mininum){
-            that.resize(that.oriWidth, that.oriHeight, that.oriX, that.oriY);
-            that.setStyle({"display": "inline"}, that._content_div);
-            that.status = Qt.Normal;
+    this.maxClick = function(){
+        if( this.status === Qt.Mininum){
+            this.resize(this.oriWidth, this.oriHeight, this.oriX, this.oriY);
+            this.setStyle({"display": "inline"}, this._content_div);
+            this.status = Qt.Normal;
             return;
         }
-        if(that.status === Qt.Normal){
+        if(this.status === Qt.Normal){
             var _w = window.document.body.clientWidth-20;
             var _h = window.document.body.clientHeight-40;
-            that.resize(_w, _h, 0, 0);
-            that.status = Qt.Maxinum;
+            this.resize(_w, _h, 0, 0);
+            this.status = Qt.Maxinum;
             return;
         }
-        if(that.status === Qt.Maxinum){
-            that.resize(that.oriWidth, that.oriHeight, that.oriX, that.oriY);
-            that.status = Qt.Normal;
+        if(this.status === Qt.Maxinum){
+            this.resize(this.oriWidth, this.oriHeight, this.oriX, this.oriY);
+            this.status = Qt.Normal;
             return;
         }
     }
 
-    this.close = function(that){
-        that.all_div.parentNode.removeChild(that.all_div);
-        that.all_div = null;
+    this.close = function(){
+        this.all_div.parentNode.removeChild(this.all_div);
+        this.all_div = null;
     }
 
     this.setLayout = function(layout){
@@ -269,8 +268,14 @@ function QWidget(parent){
             }
         }
     }
+
+    this.setChild = function(o){
+        this.all_div.that = o;
+    }
+
     /////////////////////////////////
     this.Constructor();
+    // this.all_div.that = this;
 }
 
 export {QWidget};

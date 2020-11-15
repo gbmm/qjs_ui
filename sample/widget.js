@@ -11,7 +11,7 @@ function TWidget(){
     this.oper = '';
 
     this.Constructor = function(){
-        this.resize(600,600);
+        this.resize(600,400);
         this.checkbox = new QCheckBox(this);
         this.checkbox.setPosition(100,100,100,50);
         this.checkbox.setText('测试');
@@ -19,7 +19,7 @@ function TWidget(){
     }
 
     this.revChange = function(sender,checked){
-        console.log(checked);
+        console.log('选择',checked);
     }
 
     this.Constructor();

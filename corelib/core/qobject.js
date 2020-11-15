@@ -45,10 +45,15 @@ QObject.setInstance = QObject.prototype.setInstance;
 
 QObject.extends = function (child, parent, params=null) {
   var o = new parent(params);
+  // child.prototype = o;
+  // parent.call(child);
   for (var key in o) {
     child[key] = o[key];
-    
   }
+  if(o.hasOwnProperty('setChild')){
+    o.setChild(child);
+  }
+
   if(child.uuid){
     child.obj = "self.obj_" + child.uuid.replace(/-/g, '_');
     eval(child.obj + "=child");
