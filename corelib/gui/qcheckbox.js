@@ -16,11 +16,19 @@ function QCheckBox(parent){
     }
 
     this.initUI = function(){
-        var h = this.height * 0.5;
-        this.rect = [1,this.height * 0.25,h,h]
-        this.pen.setPenStyle('#0000ff',2,false);
+        var h = this.height * 0.3;
+        this.rect = [1,this.height * 0.40,h,h]
+        this.pen.setPenStyle(this.pen.color,2,false);
         this.painter.drawRect(this.rect[0], this.rect[1], this.rect[2], this.rect[3]);
         this.setCheckable(this.checked);
+    }
+
+    this.setColor = function(color){
+        this.pen.color = color;
+    }
+
+    this.setFont = function(font){
+        this.pen.font = font;
     }
 
     this.update = function(){
@@ -60,7 +68,7 @@ function QCheckBox(parent){
     this.setCheckable = function(flag){
         if(flag){
             var font = this.pen.font;
-            this.pen.setFont("28px bold 宋体");
+            this.pen.setFont(this.pen.font);
             this.painter.drawText(2, this.height * 0.7, "✔");
             this.pen.setFont(font);
         }else{
