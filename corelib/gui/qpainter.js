@@ -99,7 +99,7 @@ function QPainter(c){
     }
 
     this.fillRoundRect = function(x, y, width, height, radius) {
-        //圆的直径必然要小于矩形的宽高          
+        //圆的直径必然要小于矩形的宽高        
         if (2 * radius > width || 2 * radius > height) { return false; }
         var ctx=this.canvas.getContext("2d");
         ctx.save();
