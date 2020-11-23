@@ -21,6 +21,7 @@ function TWidget(){
 
         this.combox = new QCombobox(this);
         this.combox.setPosition(210,100,100,30);
+        this.combox.addItems(['1','2','3','4']);
     }
 
     this.revChange = function(sender,checked){

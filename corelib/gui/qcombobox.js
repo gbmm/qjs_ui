@@ -12,7 +12,7 @@ function QCombobox(parent){
     this.height = 40;
     this.parent = parent;
     this.lineHeight = 30;
-    this.items = ['test1', 'test2', 'test3'];
+    this.items = [];
 
     this.Constructor = function(){
         this.enter = false;
@@ -67,7 +67,19 @@ function QCombobox(parent){
         this.input.value = txt;
     }
 
-    this.initUI = function(){
+    this.addItem = function(item){
+        this.items.push(item);
+        this.update();
+    }
+
+    this.addItems = function(items){
+        for(var item of items){
+            this.items.push(item);
+        }
+        this.update();
+    }
+
+    this.update = function(){
         this.setStyle({
             "width": this.width,
             "height": this.height,
@@ -85,6 +97,10 @@ function QCombobox(parent){
         }, this.canvas);
         this.resize(this.width, this.height);
         this.showItems();
+    }
+
+    this.initUI = function(){
+        this.update();
     }
 
     this.resize = function(w,h){
