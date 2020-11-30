@@ -2,6 +2,7 @@ import {QWidget} from '../corelib/gui/qwidget.js'
 import {QObject} from '../corelib/core/qobject.js'
 import {QCheckBox} from '../corelib/gui/qcheckbox.js'
 import {QCombobox} from '../corelib/gui/qcombobox.js'
+import {QLcd} from '../corelib/gui/qlcd.js'
 
 function TWidget(){
     QObject.extends(this, QWidget);
@@ -22,6 +23,9 @@ function TWidget(){
         this.combox = new QCombobox(this);
         this.combox.setPosition(210,100,100,30);
         this.combox.addItems(['1','2','3','4']);
+
+        this.lcd = new QLcd(this);
+        this.lcd.setPosition(320,100,70,100);
     }
 
     this.revChange = function(sender,checked){
